@@ -30,40 +30,42 @@ Vagrant Url: https://oracle.github.io/vagrant-projects/boxes/oraclelinux/9.json
 
 3. Verify if the system requirement was successfully installed.
 
-    ```
-    php -v      => version 8.2.17
-    mysqld -V   => version 8.0.36
-    composer    => version 2.6.6
-    Apache      => Apache/2.4.57
-    ```
+   ```
+   php -v      => version 8.2.17
+   mysqld -V   => version 8.0.36
+   composer    => version 2.6.6
+   Apache      => Apache/2.4.57
+   node -v     => v21.7.2
+   npm -v      => 10.5.0
+   ```
 
 4. If system requirements above is present. Verify below
 
-    Default private IP **192.168.56.2** in **Vagrantfile**. You can change it, whatever you want.
+   Default private IP **192.168.56.2** in **Vagrantfile**. You can change it, whatever you want.
 
-    Start the server:
+   Start the server:
 
-    ```
-    vagrant ssh
-    . /var/ssh/setup/tools/start-server.sh
-    ```
+   ```
+   vagrant ssh
+   . /var/ssh/setup/tools/start-server.sh
+   ```
 
-    Note: if some error occurred due to cannot start httpd. Please execute `vagrant reload`
+   Note: if some error occurred due to cannot start httpd. Please execute `vagrant reload`
 
-    - Verify PhpMyadmin http://192.168.56.2/phpmyadmin
-    - Verify MailHog http://192.168.56.2:8025
+   - Verify PhpMyadmin http://192.168.56.2/phpmyadmin
+   - Verify MailHog http://192.168.56.2:8025
 
 5. Create Working Directory and VirtualHost
 
-    Set Host
-    `. /var/ssh/setup/tools/setconf.sh <hostname>`
-    
-    Eg:
-    `. /var/ssh/setup/tools/setconf.sh local.crud`
+   Set Host
+   `. /var/ssh/setup/tools/setconf.sh <hostname>`
 
-    Restart the server
-    `. /var/ssh/setup/tools/restart-server.sh`
+   Eg:
+   `. /var/ssh/setup/tools/setconf.sh local.crud`
+
+   Restart the server
+   `. /var/ssh/setup/tools/restart-server.sh`
 
 6. Install Secure MySQL installation
 
-    `mysql_secure_installation`
+   `mysql_secure_installation`
