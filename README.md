@@ -57,6 +57,7 @@ Vagrant Url: https://oracle.github.io/vagrant-projects/boxes/oraclelinux/9.json
 
     Set Host
     `. /var/ssh/setup/tools/setconf.sh <hostname>`
+    
     Eg:
     `. /var/ssh/setup/tools/setconf.sh local.crud`
 
