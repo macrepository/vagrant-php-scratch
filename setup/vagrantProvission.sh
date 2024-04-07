@@ -68,6 +68,7 @@ if [ "$apache_installed" = true ] && [ "$php_installed" = true ]; then
     # Set custom server configurations
     . /var/ssh/setup/tools/custom-server-configuration.sh
     print "Custom configuration was set."
+    . /var/ssh/setup/tools/ssl.sh
 else 
     print "Cannot configure server settings due to imcomplete package installtion" true
 fi
