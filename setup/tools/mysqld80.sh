@@ -1,7 +1,10 @@
 #!/bin/bash
 
-sudo dnf module list mysql
-sudo dnf -y install @mysql:8.0
-rpm -qi mysql-server
+# Install mysql 8.0
+sudo dnf install mysql-server -y
 
-sudo systemctl enable --now mysqld
+# Start mysql
+sudo systemctl start mysqld.service
+
+# Enable mysql to start automatically
+sudo systemctl enable mysqld.service
