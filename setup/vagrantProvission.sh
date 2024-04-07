@@ -1,57 +1,75 @@
 #!/bin/bash
 
+print() {
+    local message="$1"
+    local isError="$2"
+
+    # Check if the message should be printed as an error
+    if [[ "$isError" == true ]]; then
+        # Print in red
+        echo -e "\033[31m${message}\033[0m"
+    else
+        # Print in default console color
+        echo "${message}"
+    fi
+}
+
 # Start setup
 . /var/ssh/setup/tools/start.sh
 
-# Install Apache
+# Install Apache 2.4.57
 . /var/ssh/setup/tools/apache.sh
 if command -v httpd >/dev/null 2>&1; then
-    echo "Apache HTTP Server (httpd) is installed."
+    print "Apache HTTP Server (httpd) is installed."
     apache_installed=true
 else
-    echo "Apache HTTP Server (httpd) is not installed. Please install Apache."
+    print "Apache HTTP Server (httpd) is not installed. Please install Apache." true
     apache_installed=false
 fi
 
 # Install PHP 8.2
 . /var/ssh/setup/tools/php82.sh
 if php -v >/dev/null 2>&1; then
-    echo "PHP is installed."
+    print "PHP is installed."
     php_installed=true
 else
-    echo "PHP is not installed. Please install PHP."
+    print "PHP is not installed. Please install PHP." true
     php_installed=false
 fi
 
 # Install mysql 8.0
 . /var/ssh/setup/tools/mysqld80.sh
 if mysql --version > /dev/null 2>&1; then
+    print "MySQL is installed."
     mysql_installed = true
 else
-    echo "MySQL is not installed. Please install MySQL."
+    print "MySQL is not installed. Please install MySQL." true
     mysql_installed = false
 fi
 
 if [ "$php_installed" = true ]; then
     # add composer 2.6
     . /var/ssh/setup/tools/composer.sh
+    print "Composer installed"
 else
-    echo "Composer is not installed."
+    print "Composer is not installed." true
 fi
 
 # Check if MySQL is installed
 if [ "$mysql_installed" = true ]; then
     # setup phpmyadmin
     . /var/ssh/setup/tools/phpmyadmin.sh
+    print "phpMyAdmin installed"
 else
-    echo "phpMyAdmin is not installed."
+    print "phpMyAdmin is not installed." true
 fi
 
 if [ "$apache_installed" = true ] && [ "$php_installed" = true ]; then
     # Set custom server configurations
     . /var/ssh/setup/tools/custom-server-configuration.sh
+    print "Custom configuration was set."
 else 
-    echo "Cannot configure server settings due to imcomplete package installtion"
+    print "Cannot configure server settings due to imcomplete package installtion" true
 fi
 
 # End setup
