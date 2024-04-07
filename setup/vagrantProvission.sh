@@ -79,4 +79,8 @@ else
     print "Cannot configure server settings due to imcomplete package installtion" true
 fi
 
+
+# Add node and npm
+. /var/ssh/setup/tools/node-install.sh
+
 # End setup
