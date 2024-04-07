@@ -1,6 +1,6 @@
 ## Vagrant Environment
 
-A basic environment setup for laravel version 11.
+A basic environment setup for php from scratch projects.
 
 ## **Box Information**
 
