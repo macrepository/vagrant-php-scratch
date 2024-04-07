@@ -15,7 +15,7 @@ print() {
 }
 
 # Start setup
-. /var/ssh/setup/tools/start.sh
+. /var/ssh/setup/tools/start-installation.sh
 
 # Install Apache 2.4.57
 . /var/ssh/setup/tools/apache.sh
@@ -41,16 +41,20 @@ fi
 . /var/ssh/setup/tools/mysqld80.sh
 if mysql --version > /dev/null 2>&1; then
     print "MySQL is installed."
-    mysql_installed = true
+    mysql_installed=true
 else
     print "MySQL is not installed. Please install MySQL." true
-    mysql_installed = false
+    mysql_installed=false
 fi
 
 if [ "$php_installed" = true ]; then
     # add composer 2.6
     . /var/ssh/setup/tools/composer.sh
     print "Composer installed"
+
+    # Add mailhog
+    . /var/ssh/setup/tools/mailhog-install.sh
+    print "Mailhog installed"
 else
     print "Composer is not installed." true
 fi
@@ -68,6 +72,8 @@ if [ "$apache_installed" = true ] && [ "$php_installed" = true ]; then
     # Set custom server configurations
     . /var/ssh/setup/tools/custom-server-configuration.sh
     print "Custom configuration was set."
+
+    # Install ssl needed tools
     . /var/ssh/setup/tools/ssl.sh
 else 
     print "Cannot configure server settings due to imcomplete package installtion" true
